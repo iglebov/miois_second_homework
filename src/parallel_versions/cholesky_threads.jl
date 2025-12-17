@@ -1,7 +1,7 @@
 module CholeskyThreads
-export cholesky_threads_inner, cholesky_threads_outer
 
 using Base.Threads
+
 
 function cholesky_threads_outer_safe(A)
     n = size(A, 1)
@@ -113,3 +113,30 @@ function cholesky_threads_inner(A)
 end
 
 end
+
+# function cholesky_threads_block(A; block_size=128)
+#     n = size(A, 1)
+#     L = zeros(n, n)
+    
+#     for j in 1:block_size:n
+#         j_end = min(j + block_size - 1, n)
+        
+#         for jj in j:j_end
+#             s = 0.0
+#             @inbounds for k in 1:jj-1
+#                 s += L[jj, k] * L[jj, k]
+#             end
+#             L[jj, jj] = sqrt(A[jj, jj] - s)
+            
+#             @threads for i in (jj+1):n
+#                 s = 0.0
+#                 @inbounds for k in 1:jj-1
+#                     s += L[i, k] * L[jj, k]
+#                 end
+#                 L[i, jj] = (A[i, jj] - s) / L[jj, jj]
+#             end
+#         end
+#     end
+    
+#     return L
+# end

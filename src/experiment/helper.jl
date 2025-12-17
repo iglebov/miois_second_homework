@@ -1,5 +1,4 @@
 module Helper
-export generate_spd_matrix, is_correct, measure_time, results_in_table, make_plot, analyze_results
 
 using LinearAlgebra, Statistics, Plots, Printf, Base.Threads, Measures
 
@@ -130,9 +129,6 @@ function make_plots(results, speedup, sizes)
     plot!(p1, sizes, avg_times["polyester_inner"], 
           label="Polyester (внутренний)", 
           marker=:dtriangle, linewidth=2, color=colors[5])
-
-    # min_speedup = minimum([minimum([speedup[m][n] for n in sizes]) for m in keys(speedup)])
-    # max_speedup = maximum([maximum([speedup[m][n] for n in sizes]) for m in keys(speedup)])
 
     p2 = plot(
         title="Ускорение параллельных версий",
